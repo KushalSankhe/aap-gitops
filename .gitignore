@@ -1,0 +1,8 @@
+/tmp-*.yaml
+*.key
+*.pem
+*.crt
+.env
+backup/
+.DS_Store
+*.swp

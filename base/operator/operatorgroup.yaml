@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: aap-operatorgroup
+  namespace: aap-placeholder
+spec:
+  # Namespace-scoped install: the operator watches only its own namespace.
+  # Only ONE OperatorGroup is allowed per namespace.
+  targetNamespaces:
+    - aap-placeholder
+  upgradeStrategy: Default

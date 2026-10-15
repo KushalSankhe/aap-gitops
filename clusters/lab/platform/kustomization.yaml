@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Built-in transformer: sets metadata.namespace on the AAP CR.
+namespace: giv-aap-sbx
+
+resources:
+  - ../../../base/platform
+
+patches:
+  - target:
+      kind: AnsibleAutomationPlatform
+    patch: |-
+      # CR name. The operator prefixes everything with it (pods, routes,
+      # encryption-key secrets). Pick once, never change.
+      - op: replace
+        path: /metadata/name
+        value: aapsbx
+      # Hub needs an RWX storage class.
+      - op: replace
+        path: /spec/hub/file_storage_storage_class
+        value: ocs-storagecluster-cephfs

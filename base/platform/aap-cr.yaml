@@ -1,0 +1,35 @@
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap                      # overlay renames it
+  namespace: aap-placeholder     # overlay's namespace: line rewrites it
+spec:
+  no_log: true
+  image_pull_policy: IfNotPresent
+  route_tls_termination_mechanism: Edge
+  redis_mode: standalone
+
+  # Each component references its Postgres connection Secret BY NAME.
+  # Names are identical in every env; only the Secret contents differ.
+
+  # Gateway (platform DB)
+  database:
+    database_secret: aap-gateway-external-postgres-configuration
+    postgres_data_volume_init: false
+
+  controller:
+    disabled: false
+    database_secret: aap-controller-external-postgres-configuration
+    task_replicas: 1
+    web_replicas: 1
+
+  eda:
+    disabled: false
+    database_secret: aap-eda-external-postgres-configuration
+
+  hub:
+    disabled: false
+    database_secret: aap-hub-external-postgres-configuration
+    storage_type: file
+    file_storage_storage_class: REPLACED-BY-OVERLAY   # must be RWX
+    file_storage_size: 20Gi

@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ansible-automation-platform-operator
+  namespace: aap-placeholder
+spec:
+  name: ansible-automation-platform-operator   # package name in the catalog
+  source: redhat-operators                     # catalog
+  sourceNamespace: openshift-marketplace       # where the catalog lives
+  channel: stable-2.6                          # overlays pin this per env
+  installPlanApproval: Automatic               # Manual for prod

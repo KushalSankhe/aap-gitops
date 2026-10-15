@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  # Placeholder only. Every overlay patches this name.
+  # If "aap-placeholder" ever shows up in rendered output, a patch is missing.
+  name: aap-placeholder
+  labels:
+    # Gives the openshift-gitops Argo CD instance RBAC in this namespace.
+    # Without it every sync fails with "forbidden".
+    argocd.argoproj.io/managed-by: openshift-gitops
